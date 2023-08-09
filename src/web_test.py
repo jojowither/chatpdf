@@ -29,7 +29,6 @@ config = dotenv_values("../.env")
 os.environ['OPENAI_API_KEY'] = config['OPENAI_API_KEY'] 
 vectorstore_path = "./chroma_db"
 
-
 # Create instance of OpenAI LLM
 embeddings = OpenAIEmbeddings()
 
@@ -76,11 +75,18 @@ def conversational_chat(query):
 st.title('🦜🔗 ChatPDF: 跟你的文件對話')
 st.subheader('上傳PDF，問問題，然後從文件中獲得解答')
 
-    
+
 uploaded_file = st.file_uploader('', type=(['pdf',"tsv","csv","txt","tab","xlsx","xls"]))
+
+if st.button("若要分析新文件，請先重新整理網頁，再按此按鈕清除快取"):
+    shutil.rmtree(vectorstore_path, ignore_errors=True)
+    st.cache_resource.clear()
+    st.cache_data.clear()     
+
+
 while uploaded_file is None:
     x = 1
-        
+
 if uploaded_file is not None:
     # Save the uploaded file to a temporary location
     temp_dir = tempfile.TemporaryDirectory()
