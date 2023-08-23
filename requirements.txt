@@ -1,0 +1,8 @@
+fastapi==0.85.1
+uvicorn==0.23.0
+langchain==0.0.202
+chromadb==0.3.29
+requests==2.31.0
+streamlit==1.23.1
+streamlit-chat==0.0.2.2
+sentence-transformers==2.2.2
